@@ -1,12 +1,6 @@
+import torch
 from torchvision import datasets, transforms
 import os
-cwd = os.getcwd()
-print(cwd)
-import sys
-# insert at 1, 0 is the script path (or '' in REPL)
-sys.path.append('./base')
-sys.path.append('.')
-sys.path.append('./data')
 from base import BaseDataLoader
 from torch.utils.data import Dataset
 
@@ -34,7 +28,7 @@ class StockDataLoader(BaseDataLoader):
     Stock data loading demo using BaseDataLoader
     """
     def __init__(self, data_path, howManyDays, batch_size, shuffle=True, validation_split=0.0, num_workers=1):
-        self.dataset = StockDataset(self, data_path, howManyDays)
+        self.dataset = StockDataset(data_path, howManyDays)
         super().__init__(self.dataset, batch_size, shuffle, validation_split, num_workers)
 
 
@@ -49,15 +43,17 @@ class StockDataset(Dataset):
         self.loaddata(stockdf)
         
     def loaddata(self, raw_data):
+        raw_data = raw_data[['open', 'high', 'low', 'volume', 'close']]
         self.dataset = []
-        for i in tqdm(range(self.howManyDays, len(raw_data) - 1)):
-            data = {"data": raw_data[i - self.howManyDays : i],
-                    "label": raw_data.iloc[i + 1]}
+        for i in tqdm(range(0, len(raw_data) - 1, self.howManyDays)):
+            if i + self.howManyDays < len(raw_data):
+                data = {"data": torch.FloatTensor(raw_data[i : i + self.howManyDays].values.tolist()),
+                        "label": torch.FloatTensor(raw_data[["close"]].iloc[i + self.howManyDays].values.tolist())}
             self.dataset.append(data)
 
     def __len__(self):
         return len(self.dataset)
 
     def __getitem__(self, index):
-        return self.dataset[index]
-
+        data = self.dataset[index] 
+        return data["data"], data["label"]
