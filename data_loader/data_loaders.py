@@ -41,11 +41,13 @@ class StockDataset(Dataset):
         self.howManyDays = howManyDays
         print("How many days per entry:", self.howManyDays)
         self.loaddata(stockdf)
+        print("Dataset length", len(self.dataset))
         
     def loaddata(self, raw_data):
         raw_data = raw_data[['open', 'high', 'low', 'volume', 'close']]
         self.dataset = []
-        for i in tqdm(range(0, len(raw_data) - 1, self.howManyDays)):
+        print("Raw data length", len(raw_data))
+        for i in tqdm(range(0, len(raw_data) - self.howManyDays - 1)):
             if i + self.howManyDays < len(raw_data):
                 data = {"data": torch.FloatTensor(raw_data[i : i + self.howManyDays].values.tolist()),
                         "label": torch.FloatTensor(raw_data[["close"]].iloc[i + self.howManyDays].values.tolist())}

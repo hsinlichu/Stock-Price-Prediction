@@ -12,11 +12,11 @@ class StockModel(BaseModel):
 
     def forward(self, x):
         output, _ = self.gru(x)
-        print("GRU output", output.size())
+        #print("GRU output", output.size())
         x = F.relu(output[:, -1, :])
         x = self.dropout(x)
         x = self.fc1(x)
         x = F.relu(x)
-        print("FC1 output", x.size())
+        #print("FC1 output", x.size())
         predict = self.fc2(x)
         return predict

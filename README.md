@@ -10,9 +10,9 @@ $ pip -r requirements.txt
 
 
 ### Run Tensorboard Visualization
-Run below command at the project root, then server will open at `http://localhost:6006`
+Run below command at the project root, then server will open at `http://localhost:1357`
 ```
-$ tensorboard --logdir saved/log/
+$ tensorboard --logdir saved/log/ --port 1357
 ```
 
 ### Training

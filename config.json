@@ -27,6 +27,7 @@
     },
     "loss": "MSELoss",
     "metrics": [
+        "difference"
     ],
     "lr_scheduler": {
         "type": "StepLR",
