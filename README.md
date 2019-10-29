@@ -24,5 +24,9 @@ $ python train.py -c config.json -d 0
 ### Testing
 
 ```
-$ python test.py -c config.json -d 0 --resume saved/models/ThesisTagging/1010_013058/model_best.pth
+$ python test.py -c config.json -d 0 --resume saved/models/StockNet/1010_013058/model_best.pth
 ```
+
+## Note
+
+* If you don't normalize the data, model will always predict the same value like 54.
