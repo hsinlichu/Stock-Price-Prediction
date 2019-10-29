@@ -18,3 +18,11 @@ def top_k_acc(output, target, k=3):
         for i in range(k):
             correct += torch.sum(pred[:, i] == target).item()
     return correct / len(target)
+
+def difference(output, target):
+    with torch.no_grad():
+        delta = target - output
+        average = torch.mean(delta, 0)
+    return average.item()
+
+
