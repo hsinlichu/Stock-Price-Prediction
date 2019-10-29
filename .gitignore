@@ -110,4 +110,6 @@ datasets/
 .idea/
 __MACOSX/
 *.swp
+*.swo
 *.DS_Store
+*._*
