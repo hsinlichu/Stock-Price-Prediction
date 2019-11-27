@@ -1,4 +1,5 @@
 import torch
+import torch.nn.functional as F
 
 
 def accuracy(output, target):
@@ -23,6 +24,22 @@ def difference(output, target):
     with torch.no_grad():
         delta = target - output
         average = torch.mean(delta, 0)
-    return average.item()
+        return average.item()
+
+def difference_vae(out, target):
+    recon_x, x, mu, logvar, output = out
+    with torch.no_grad():
+        delta = target - output
+        average = torch.mean(delta, 0)
+        return average.item()
+
+def mse_vae(out, target):
+    recon_x, x, mu, logvar, output = out
+    with torch.no_grad():
+        output = torch.squeeze(output)
+        target = torch.squeeze(target)
+        return F.mse_loss(output, target)
+
+
 
 

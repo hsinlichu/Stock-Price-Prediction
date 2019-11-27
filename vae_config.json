@@ -1,9 +1,9 @@
 {
-    "name": "StockNet_processed",
+    "name": "StockNet_processed_vaelstm",
     "n_gpu": 1,
 
     "arch": {
-        "type": "StockModel",
+        "type": "VAElstm",
         "args": {
             "input_size": 47,
             "hidden_size": 128,
@@ -31,9 +31,10 @@
             "amsgrad": true
         }
     },
-    "loss": "MSELoss",
+    "loss": "VAEandMSELoss",
     "metrics": [
-        "difference"
+        "difference_vae",
+        "mse_vae"
     ],
     "lr_scheduler": {
         "type": "StepLR",

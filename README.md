@@ -42,3 +42,7 @@ $ python test.py -c config.json -d 0 --resume saved/models/StockNet/1010_013058/
 
   ![graph_testing](./graph/graph_testing.png)
 
+* Performance is better when only use 1 layer GRU and don't use batch normalization.
+
+* Use technical index (47 dim) result in better performance.
+
