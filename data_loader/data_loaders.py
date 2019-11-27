@@ -34,7 +34,7 @@ class StockDataset(Dataset):
     def loaddata(self, raw_data):
         print("Origin Raw data length", len(raw_data))
         print("cutting date(testing start): {}".format(raw_data.iloc[floor((1 - self.testing_split) * len(raw_data))].date), floor((1 - self.testing_split) * len(raw_data)))
-        raw_data = raw_data[['open', 'high', 'low', 'volume', 'close']]
+        del raw_data["date"]
 
         stat = {}
         if self.training:
